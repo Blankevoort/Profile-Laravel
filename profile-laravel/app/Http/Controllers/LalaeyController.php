@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Lalaey;
 
 class LalaeyController extends Controller
 {
@@ -13,7 +14,11 @@ class LalaeyController extends Controller
      */
     public function index()
     {
-        return view('../Admin/Admin');
+        $lalaeys = Lalaey::all();
+
+        return view('../Admin/Admin', [
+            'lalaeys' => $lalaeys
+        ]);
     }
 
     /**
@@ -23,7 +28,7 @@ class LalaeyController extends Controller
      */
     public function create()
     {
-        //
+        return view('../Admin/LalaeyControlPanel.LalaeyUplaod');
     }
 
     /**
@@ -34,7 +39,15 @@ class LalaeyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $lalaey = new Lalaey;
+
+        $lalaey->Name = $request->input('Name');
+        $lalaey->Lang = $request->input('Lang');
+        $lalaey->Type = $request->input('Type');
+        $lalaey->Description = $request->input('Description');
+        $lalaey->save();
+
+        return redirect('/lalaey');
     }
 
     /**
