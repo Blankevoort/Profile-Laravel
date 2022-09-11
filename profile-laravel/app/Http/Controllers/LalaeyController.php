@@ -101,11 +101,29 @@ class LalaeyController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'Name' => 'required',
+            'Lang' => 'required',
+            'Type' => 'required',
+            'Description' => 'max:500',
+        ]);
+
+        $NewImageName = time() . '-' . $request->Name . '.' . $request->Image->extension();
+
+        $request->Image->move(public_path('Images'), $NewImageName);
+
+        $NewAudioeName = time() . '-' . $request->Name . '.' . $request->Audio->extension();
+
+        $request->Audio->move(public_path('Lalaeys'), $NewAudioeName);
+
         $lalaey = Lalaey::where('id', $id)->update([
             'Name' => $request->input('Name'),
             'Lang' => $request->input('Lang'),
             'Type' => $request->input('Type'),
             'Description' => $request->input('Description'),
+            'Image_Path' => $NewImageName,
+            'Audio_Path' => $NewAudioeName,
         ]);
 
         return redirect('/lalaey');

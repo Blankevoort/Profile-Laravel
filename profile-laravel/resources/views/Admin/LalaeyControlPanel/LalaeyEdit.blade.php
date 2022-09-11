@@ -6,18 +6,19 @@
 
 @section('mainContent')
     <div>
-        <form action="/lalaey" method="POST" enctype="multipart/form-data">
+        <form action="/lalaey/{{ $lalaey->id }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="text" name="Name">
-            <select name="Lang">
+            @method('PUT')
+            <input type="text" name="Name" value="{{ $lalaey->Name }}">
+            <select name="Lang" value="{{ $lalaey->Lang }}">
                 <option value="FA">FA</option>
                 <option value="EN">EN</option>
             </select>
-            <select name="Type">
+            <select name="Type" value="{{ $lalaey->Type }}">
                 <option value="Happy">Happy</option>
                 <option value="Sad">Sad</option>
             </select>
-            <input type="text" name="Description">
+            <input type="text" name="Description" value="{{ $lalaey->Description }}" />
             Choose Lalaey: <input type="file" name="Audio">
             Choose Lalaey`s Image: <input type="file" name="Image">
             <button type="submit">Submit</button>
