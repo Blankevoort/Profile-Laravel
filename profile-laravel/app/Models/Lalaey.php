@@ -10,4 +10,6 @@ class Lalaey extends Model
     use HasFactory;
 
     protected $table = 'lalaeys';
+
+    protected $fillable = ['Name', 'Lang', 'Type', 'Description', 'Image_Path', 'Audio_Path'];
 }

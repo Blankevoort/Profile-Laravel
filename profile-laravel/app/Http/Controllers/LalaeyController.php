@@ -39,13 +39,31 @@ class LalaeyController extends Controller
      */
     public function store(Request $request)
     {
-        $lalaey = new Lalaey;
+        $request->validate([
+            'Name' => 'required',
+            'Lang' => 'required',
+            'Type' => 'required',
+            'Description' => 'max:500',
+            'Image' => 'mimes:png,jpg,jpeg|max:3500',
+            'Audio' => 'mimes:mp3|max:7500',
+        ]);
 
-        $lalaey->Name = $request->input('Name');
-        $lalaey->Lang = $request->input('Lang');
-        $lalaey->Type = $request->input('Type');
-        $lalaey->Description = $request->input('Description');
-        $lalaey->save();
+        $NewImageName = time() . '-' . $request->Name . '.' . $request->Image->extension();
+
+        $request->Image->move(public_path('Images'), $NewImageName);
+
+        $NewAudioeName = time() . '-' . $request->Name . '.' . $request->Audio->extension();
+
+        $request->Audio->move(public_path('Lalaeys'), $NewAudioeName);
+
+        $lalaey = Lalaey::create([
+            'Name' => $request->input('Name'),
+            'Lang' => $request->input('Lang'),
+            'Type' => $request->input('Type'),
+            'Description' => $request->input('Description'),
+            'Image_Path' => $NewImageName,
+            'Audio_Path' => $NewAudioeName,
+        ]);
 
         return redirect('/lalaey');
     }
@@ -69,7 +87,9 @@ class LalaeyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lalaey = Lalaey::find($id);
+
+        return view('Admin/LalaeyControlPanel.LalaeyEdit')->with('lalaey', $lalaey);
     }
 
     /**
@@ -81,7 +101,14 @@ class LalaeyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $lalaey = Lalaey::where('id', $id)->update([
+            'Name' => $request->input('Name'),
+            'Lang' => $request->input('Lang'),
+            'Type' => $request->input('Type'),
+            'Description' => $request->input('Description'),
+        ]);
+
+        return redirect('/lalaey');
     }
 
     /**
@@ -90,8 +117,10 @@ class LalaeyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lalaey $lalaey)
     {
-        //
+        $lalaey->delete();
+
+        return redirect('/lalaey');
     }
 }

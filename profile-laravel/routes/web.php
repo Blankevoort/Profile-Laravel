@@ -15,7 +15,7 @@ use App\Http\Controllers\LalaeyController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Main');
 });
 
 Route::resource('/lalaey', LalaeyController::class);

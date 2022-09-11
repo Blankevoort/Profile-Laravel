@@ -19,6 +19,8 @@ class CreateLalaeysTable extends Migration
             $table->string('Lang');
             $table->string('Type');
             $table->string('Description');
+            $table->string('Audio_Path');
+            $table->string('Image_Path');
             $table->timestamps();
         });
     }
