@@ -319,7 +319,7 @@
                     <div class="card-body">
                         <div class="text-center">
                             <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem"
-                                src="img/undraw_posting_photo.svg" alt="..." />
+                                src="{{ asset('img/undraw_posting_photo.svg') }}" alt="..." />
                         </div>
                         <p>
                             Add some quality, svg illustrations to your project
@@ -360,16 +360,6 @@
     <!-- /.container-fluid -->
     </div>
     <!-- End of Main Content -->
-
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2021</span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
     </div>
     <!-- End of Content Wrapper -->
     </div>

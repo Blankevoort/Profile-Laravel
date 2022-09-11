@@ -19,9 +19,3 @@ Route::get('/', function () {
 });
 
 Route::resource('/lalaey', LalaeyController::class);
-
-Route::prefix('admin')->group(function () {
-    Route::get('/home', function () {
-        return view('../Admin/Admin');
-    });
-});
